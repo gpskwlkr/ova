@@ -2,7 +2,9 @@
 name = "ova"
 version = "0.1.0"
 edition = "2021"
-
+description = "CLI tool for getting your 2FA codes into your clipboard"
+license = "MIT"
+authors = ["gpskwlkr"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
