@@ -4,12 +4,34 @@
 
 > <code>ova</code> is a simple CLI tool which lets you manage your TOTPs, or basically lets you get your two-way authentication code straight to your clipboard.
 
-[<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=555555&logo=github">](https://github.com/gpskwlkr/ova)
-[![Crates.io](https://img.shields.io/crates/v/ova?style=for-the-badge)](https://crates.io/crates/ova)
-[![Crates.io](https://img.shields.io/crates/d/ova?style=for-the-badge)](https://crates.io/crates/ova)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=for-the-badge)](https://github.com/gpskwlkr/ova/actions/workflows/ci.yml)
-[![Coverage Status](https://img.shields.io/coverallsCoverage/github/gpskwlkr/ova.svg?branch=master&style=for-the-badge)](https://coveralls.io/github/gpskwlkr/ova?branch=master)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE-MIT)
+<div align="center">
+  <a href="https://github.com/gpskwlkr/ova">
+     <img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=555555&logo=github">
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://github.com/gpskwlkr/ova/actions/workflows/ci.yml" style="text-decoration: none;">
+    <img alt="build status" src="https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=for-the-badge">
+  </a>
+  <a href="LICENSE" style="text-decoration: none;">
+    <img alt="license" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
+  </a>
+</div>
+
+<div align="center">
+  <a href="https://crates.io/crates/ova" style="text-decoration: none;">
+    <img alt="" src="https://img.shields.io/crates/v/ova?style=for-the-badge">
+  </a>
+  
+  <a href="https://crates.io/crates/ova" style="text-decoration: none;">
+    <img alt="" src="https://img.shields.io/crates/d/ova?style=for-the-badge">
+  </a>
+  
+  <a href="https://coveralls.io/github/gpskwlkr/ova?branch=master" style="text-decoration: none;">
+    <img alt="" src="https://img.shields.io/coverallsCoverage/github/gpskwlkr/ova.svg?branch=master&style=for-the-badge">
+  </a>
+</div>
 
 # Available commands
 
