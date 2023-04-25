@@ -1,6 +1,6 @@
 [package]
 name = "ova"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "CLI tool for getting your 2FA codes into clipboard"
 license = "MIT"
