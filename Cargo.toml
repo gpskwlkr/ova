@@ -5,6 +5,7 @@ edition = "2021"
 description = "CLI tool for getting your 2FA codes into clipboard"
 license = "MIT"
 authors = ["gpskwlkr"]
+repository = "https://github.com/gpskwlkr/ova"
 
 # Static linking to make executable as small as possible
 [profile.release]
