@@ -7,6 +7,7 @@
 [<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=088F8F&logo=github" height="20">](https://github.com/gpskwlkr/ova)
 [![Crates.io](https://img.shields.io/crates/v/ova?style=flat-square)](https://crates.io/crates/ova)
 [![Crates.io](https://img.shields.io/crates/d/ova?style=flat-square)](https://crates.io/crates/ova)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=flat-square)](https://github.com/gpskwlkr/ova/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE-MIT)
 
 # Available commands
