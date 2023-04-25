@@ -117,7 +117,7 @@ impl Store {
             return Err(anyhow!("Key cannot be empty"));
         }
 
-        let (index_to_remove, mut file_content) = Self::find_line_index(key, &self.file_path)?; 
+        let (index_to_remove, mut file_content) = Self::find_line_index(key, &self.file_path)?;
 
         if let Some(index) = index_to_remove {
             file_content.remove(index);
