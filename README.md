@@ -1,5 +1,5 @@
 <h1 align="center" style="color: red">
-  ova <img alt="clipboard" src="readme_items/clipboard.svg" height="50" width="50" align="center"/>
+  ova <img alt="clipboard" src="readme_items/clipboard.svg" height="30" width="30" align="center"/>
 </h1>
 
 > <code>ova</code> is a simple CLI tool which lets you manage your TOTPs, or basically lets you get your two-way authentication code straight to your clipboard.
