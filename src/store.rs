@@ -84,7 +84,7 @@ impl Store {
 
         for line in reader.lines() {
             let line = line.unwrap();
-            if !line.is_empty() && !line.starts_with("#") {
+            if !line.is_empty() && !line.starts_with('#') {
                 file_content.push(line);
             }
         }
