@@ -4,7 +4,7 @@
 
 > <code>ova</code> is a simple CLI tool which lets you manage your TOTPs, or basically lets you get your two-way authentication code straight to your clipboard.
 
-[<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=088F8F&logo=github">](https://github.com/gpskwlkr/ova)
+[<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=555555&logo=github">](https://github.com/gpskwlkr/ova)
 [![Crates.io](https://img.shields.io/crates/v/ova?style=for-the-badge)](https://crates.io/crates/ova)
 [![Crates.io](https://img.shields.io/crates/d/ova?style=for-the-badge)](https://crates.io/crates/ova)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=for-the-badge)](https://github.com/gpskwlkr/ova/actions/workflows/ci.yml)
