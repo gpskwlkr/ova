@@ -103,6 +103,10 @@ impl Store {
             return Err(anyhow!("Key cannot be empty"));
         }
 
+        if self.keys.contains_key(key) {
+            return Err(anyhow!("Key already exists"));
+        }
+
         let mut file = OpenOptions::new().append(true).open(&self.file_path)?;
         file.write_all(format!("{} = {}\n", key, value).as_bytes())?;
         Ok(())
