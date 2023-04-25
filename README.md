@@ -38,7 +38,7 @@
 | Command | Options | Description |
 | --- | --- | --- |
 | ova get | -n, --name `<name of a key>` | Get 2FA code for specified key |
-| ova add | -n, --name `<name of a key>`, -k, --key `<2FA secret>` | Store your key locally at `~/.config/ova.store` |
+| ova add | -n, --name `<name of a key>`, -k, --key `<2FA secret>` | Store your key locally at `~/.config/ova.store` or `'%USERPROFILE%\AppData\Local'` |
 | ova remove | -n, --name `<name of a key>` | Remove key from local store file |
 | ova update | -n, --name `<name of a key>`, -k, --key `<new secret value>` | Update key if it exists |
 | ova list | no options | List all stored keys and their secrets |
