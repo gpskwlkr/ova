@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+    
       - name: Update local toolchain
         run: |
           rustup update
@@ -37,3 +37,6 @@ jobs:
       - name: Build
         run: |
           cargo build --release 
+
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1
