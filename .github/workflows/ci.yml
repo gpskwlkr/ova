@@ -26,17 +26,17 @@ jobs:
 
       - name: Lint
         run: |
-          cd phaser
+          cd ova
           cargo fmt -- --check
           cargo clippy -- -D warnings          
 
       - name: Test
         run: |
-          cd phaser
+          cd ova
           cargo check
           cargo test --all          
 
       - name: Build
         run: |
-          cd phaser
+          cd ova
           cargo build --release 
