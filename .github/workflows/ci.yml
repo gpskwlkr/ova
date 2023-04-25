@@ -16,7 +16,8 @@ jobs:
         run: |
           rustup update
           rustup component add clippy
-          rustup install nightly          
+          rustup install nightly
+          cargo install cargo-llvm-cov --locked
 
       - name: Toolchain info
         run: |
@@ -31,8 +32,8 @@ jobs:
 
       - name: Test
         run: |
-          cargo check
-          cargo test --all          
+          mkdir coverage
+          cargo llvm-cov --lcov --output-path ./coverage/lcov.info 
 
       - name: Build
         run: |
