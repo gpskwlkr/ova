@@ -56,6 +56,12 @@ pub struct App {
     pub command: Command,
 }
 
+impl Default for App {
+    fn default() -> Self {
+        App::new()
+    }
+}
+
 impl App {
     pub fn new() -> Self {
         App::parse()
@@ -76,7 +82,7 @@ impl App {
             }
 
             Command::Add { name, key } => {
-                if !(key.len() > 0) {
+                if key.is_empty() {
                     println!("Key cannot be empty");
                     return Ok(());
                 }

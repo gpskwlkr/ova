@@ -64,7 +64,7 @@ impl Store {
 
         let keys_map: HashMap<String, String> = file_content
             .into_iter()
-            .filter(|line| !line.is_empty() && !line.starts_with("#"))
+            .filter(|line| !line.is_empty() && !line.starts_with('#'))
             .filter_map(|line| {
                 let mut split = line.splitn(2, '=');
                 let key = split.next()?.trim().to_owned();
