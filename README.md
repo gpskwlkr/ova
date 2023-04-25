@@ -29,6 +29,12 @@ Right now the only possible way to install `ova` is via
 
 `cargo install ova`
 
+# Currently tested with
+
+- [x] Bitwarden
+- [x] Facebook
+- [ ] Twitter
+
 # What's to do
 
 - [x] Storing keys in a local file :tada:
@@ -36,4 +42,3 @@ Right now the only possible way to install `ova` is via
 - [ ] Fully working `remove` and `update` commands
 - [ ] Copy to clipboard working on Windows, Mac OS and Linux
 - [ ] More to come...
-
