@@ -107,6 +107,51 @@ impl Store {
         file.write_all(format!("{} = {}\n", key, value).as_bytes())?;
         Ok(())
     }
+
+    pub fn delete_from_store(&self, key: &String) -> Result<()> {
+        if key.trim().is_empty() {
+            return Err(anyhow!("Key cannot be empty"));
+        }
+
+        let (index_to_remove, mut file_content) = Self::find_line_index(key, &self.file_path)?; 
+
+        if let Some(index) = index_to_remove {
+            file_content.remove(index);
+        }
+
+        let mut file = File::create(&self.file_path)?;
+        file.write_all(file_content.join("\n").as_bytes())?;
+        Ok(())
+    }
+
+    pub fn update_store(&self, key: &String, value: &String) -> Result<()> {
+        if key.trim().is_empty() || value.trim().is_empty() {
+            return Err(anyhow!("Key cannot be empty"));
+        }
+
+        let (index_to_update, mut file_content) = Self::find_line_index(key, &self.file_path)?;
+
+        if let Some(index) = index_to_update {
+            file_content[index] = format!("{} = {}", key, value);
+        }
+
+        let mut file = File::create(&self.file_path)?;
+        file.write_all(file_content.join("\n").as_bytes())?;
+        Ok(())
+    }
+
+    fn find_line_index(key: &String, path: &PathBuf) -> Result<(Option<usize>, Vec<String>)> {
+        let file_content = Self::read_store_file_as_string(path)?;
+        let mut index: Option<usize> = None;
+        for (i, line) in file_content.iter().enumerate() {
+            if line.starts_with(key) {
+                index = Some(i);
+                break;
+            }
+        }
+
+        Ok((index, file_content))
+    }
 }
 
 #[cfg(test)]
@@ -186,6 +231,49 @@ mod tests {
 
         let result = store.insert_into_store(&key, &value);
         assert!(result.is_err());
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_delete_from_store() {
+        let path = PathBuf::new().join("test_delete.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "test_key".to_string();
+        let value = "test_value".to_string();
+
+        store.insert_into_store(&key, &value).unwrap();
+        store.delete_from_store(&key).unwrap();
+
+        let file_content = Store::read_store_file_as_string(&path).unwrap();
+        assert_eq!(file_content.len(), 0);
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_update_store() {
+        let path = PathBuf::new().join("test_update.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "test_key".to_string();
+        let value = "test_value".to_string();
+
+        store.insert_into_store(&key, &value).unwrap();
+        store.update_store(&key, &"new_value".to_string()).unwrap();
+
+        let file_content = Store::read_store_file_as_string(&path).unwrap();
+        assert_eq!(file_content.len(), 1);
+        assert_eq!(file_content[0], "test_key = new_value");
 
         remove_file(path).unwrap();
     }

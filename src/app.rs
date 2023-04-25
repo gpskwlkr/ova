@@ -87,11 +87,12 @@ impl App {
                     return Err(anyhow!("Key must be at least 16 characters long"));
                 }
 
-                println!("Adding {} with key {}", name, key);
                 store.insert_into_store(name, key)?;
+                println!("Added {} with key {}", name, key);
             }
             Command::Remove { name } => {
-                println!("Removing {}", name);
+                store.delete_from_store(name)?;
+                println!("Removed {}", name);
             }
             Command::List => {
                 println!("Key\tValue");
@@ -102,7 +103,8 @@ impl App {
             }
 
             Command::Update { name, key } => {
-                println!("Updating {} with key {}", name, key);
+                store.update_store(name, key)?;
+                println!("Updated {} with key {}", name, key);
             }
         }
 

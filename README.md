@@ -42,7 +42,7 @@ Or use precompiled binaries provided as releases.
 
 - [x] Storing keys in a local file :tada:
 - [x] Fully working `get`, `add`, `list` commands :tada:
-- [ ] Fully working `remove` and `update` commands
+- [x] Fully working `remove` and `update` commands
 - [ ] Copy to clipboard working on Windows, Mac OS and Linux
 - [ ] Pretty print
 - [ ] More to come...
