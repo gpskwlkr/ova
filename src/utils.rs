@@ -1,6 +1,5 @@
 use anyhow::Result;
-use totp_rs::{Secret, TOTP, Algorithm};
-
+use totp_rs::{Algorithm, Secret, TOTP};
 
 pub fn get_2fa_code(key: &str) -> Result<String> {
     let secret = Secret::Encoded(key.to_string());
