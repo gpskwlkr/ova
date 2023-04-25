@@ -94,7 +94,6 @@ impl App {
                 println!("Removing {}", name);
             }
             Command::List => {
-                println!("Listing");
                 println!("Key\tValue");
                 println!("-----\t-----");
                 for (name, key) in store.keys.iter() {
