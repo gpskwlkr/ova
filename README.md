@@ -22,6 +22,12 @@
   
 Note that `ova help` could be executed per subcommand as well, like `ova add help` which provides a description for chosen subcommand.
 
+# Install
+
+Right now the only possible way to install `ova` is via
+
+`cargo install ova`
+
 # What's to do
 
 - [x] Storing keys in a local file :tada:
