@@ -25,9 +25,11 @@ Note that `ova help` could be executed per subcommand as well, like `ova add hel
 
 # Install
 
-Right now the only possible way to install `ova` is via
+You can install `ova` via
 
 `cargo install ova`
+
+Or use precompiled binaries provided as releases.
 
 # Currently tested with
 
