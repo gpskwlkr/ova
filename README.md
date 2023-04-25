@@ -4,11 +4,11 @@
 
 > <code>ova</code> is a simple CLI tool which lets you manage your TOTPs, or basically lets you get your two-way authentication code straight to your clipboard.
 
-[<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=088F8F&logo=github" height="20">](https://github.com/gpskwlkr/ova)
-[![Crates.io](https://img.shields.io/crates/v/ova?style=flat-square)](https://crates.io/crates/ova)
-[![Crates.io](https://img.shields.io/crates/d/ova?style=flat-square)](https://crates.io/crates/ova)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=flat-square)](https://github.com/gpskwlkr/ova/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE-MIT)
+[<img alt="github" src="https://img.shields.io/badge/github-gpskwlkr/ova-50C878?style=for-the-badge&labelColor=088F8F&logo=github">](https://github.com/gpskwlkr/ova)
+[![Crates.io](https://img.shields.io/crates/v/ova?style=for-the-badge)](https://crates.io/crates/ova)
+[![Crates.io](https://img.shields.io/crates/d/ova?style=for-the-badge)](https://crates.io/crates/ova)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/clap-rs/clap/ci.yml?branch=master&style=for-the-badge)](https://github.com/gpskwlkr/ova/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE-MIT)
 
 # Available commands
 
@@ -29,6 +29,12 @@ Right now the only possible way to install `ova` is via
 
 `cargo install ova`
 
+# Currently tested with
+
+- [x] Bitwarden
+- [x] Facebook
+- [ ] Twitter
+
 # What's to do
 
 - [x] Storing keys in a local file :tada:
@@ -36,4 +42,3 @@ Right now the only possible way to install `ova` is via
 - [ ] Fully working `remove` and `update` commands
 - [ ] Copy to clipboard working on Windows, Mac OS and Linux
 - [ ] More to come...
-
