@@ -1,9 +1,43 @@
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use totp_rs::{Algorithm, Secret, TOTP};
 
 pub fn get_2fa_code(key: &str) -> Result<String> {
+    if key.trim().is_empty() {
+        return Err(anyhow!("Key cannot be empty"));
+    }
+
+    if key.len() != 32 {
+        return Err(anyhow!("Key must be 32 characters long"));
+    }
+
     let secret = Secret::Encoded(key.to_string());
     let totp = TOTP::new(Algorithm::SHA1, 6, 1, 30, secret.to_bytes().unwrap()).unwrap();
     let code = totp.generate_current()?;
     Ok(code)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_2fa_code_with_empty_key() {
+        let key = "";
+        let code = get_2fa_code(key);
+        assert!(code.is_err());
+    }
+
+    #[test]
+    fn test_get_2fa_code_with_key_less_than_32_characters() {
+        let key = "1234567890123456789012345678901";
+        let code = get_2fa_code(key);
+        assert!(code.is_err());
+    }
+
+    #[test]
+    fn test_get_2fa_code_with_key_more_than_32_characters() {
+        let key = "123456789012345678901234567890123";
+        let code = get_2fa_code(key);
+        assert!(code.is_err());
+    }
 }

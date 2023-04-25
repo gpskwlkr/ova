@@ -99,8 +99,94 @@ impl Store {
     }
 
     pub fn insert_into_store(&self, key: &String, value: &String) -> Result<()> {
+        if key.trim().is_empty() || value.trim().is_empty() {
+            return Err(anyhow!("Key cannot be empty"));
+        }
+
         let mut file = OpenOptions::new().append(true).open(&self.file_path)?;
         file.write_all(format!("{} = {}\n", key, value).as_bytes())?;
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs::remove_file;
+    use std::path::PathBuf;
+
+    #[test]
+    fn test_insert_into_store() {
+        let path = PathBuf::new().join("test.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "test_key".to_string();
+        let value = "test_value".to_string();
+
+        store.insert_into_store(&key, &value).unwrap();
+
+        let file_content = Store::read_store_file_as_string(&path).unwrap();
+        assert_eq!(file_content.len(), 1);
+        assert_eq!(file_content[0], "test_key = test_value");
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_insert_into_store_with_empty_key() {
+        let path = PathBuf::new().join("test_empty.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "".to_string();
+        let value = "test_value".to_string();
+
+        let result = store.insert_into_store(&key, &value);
+        assert!(result.is_err());
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_insert_into_store_with_empty_value() {
+        let path = PathBuf::new().join("test_empty_value.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "test_key".to_string();
+        let value = "".to_string();
+
+        let result = store.insert_into_store(&key, &value);
+        assert!(result.is_err());
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_insert_into_store_with_empty_key_and_value() {
+        let path = PathBuf::new().join("test_empty_key_value.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "".to_string();
+        let value = "".to_string();
+
+        let result = store.insert_into_store(&key, &value);
+        assert!(result.is_err());
+
+        remove_file(path).unwrap();
     }
 }

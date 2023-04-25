@@ -1,5 +1,5 @@
 use crate::{store::Store, utils::get_2fa_code};
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use clap::{Parser, Subcommand};
 
 #[derive(Subcommand)]
@@ -74,8 +74,7 @@ impl App {
                 let key = match store.keys.get(name) {
                     Some(key) => key,
                     None => {
-                        println!("Key {} not found", name);
-                        return Ok(());
+                        return Err(anyhow!("Key not found"));
                     }
                 };
                 println!("Key: {}", get_2fa_code(key)?);
@@ -83,8 +82,9 @@ impl App {
 
             Command::Add { name, key } => {
                 if key.is_empty() {
-                    println!("Key cannot be empty");
-                    return Ok(());
+                    return Err(anyhow!("Key cannot be empty"));
+                } else if key.len() < 16 {
+                    return Err(anyhow!("Key must be at least 16 characters long"));
                 }
 
                 println!("Adding {} with key {}", name, key);

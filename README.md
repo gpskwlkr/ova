@@ -41,6 +41,7 @@ Right now the only possible way to install `ova` is via
 - [x] Fully working `get`, `add`, `list` commands :tada:
 - [ ] Fully working `remove` and `update` commands
 - [ ] Copy to clipboard working on Windows, Mac OS and Linux
+- [ ] Pretty print
 - [ ] More to come...
 
 # Credits
