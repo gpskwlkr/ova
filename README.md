@@ -1,5 +1,5 @@
-<h1 align="center">
-  ova 📋
+<h1 align="center" style="color: red">
+  ova <img alt="clipboard" src="readme_items/clipboard.svg" height="50" width="50" align="center"/>
 </h1>
 
 > <code>ova</code> is a simple CLI tool which lets you manage your TOTPs, or basically lets you get your two-way authentication code straight to your clipboard.
@@ -42,3 +42,7 @@ Right now the only possible way to install `ova` is via
 - [ ] Fully working `remove` and `update` commands
 - [ ] Copy to clipboard working on Windows, Mac OS and Linux
 - [ ] More to come...
+
+# Credits
+
+Icon by [BomSymbols](https://thenounproject.com/korawan_m/)
