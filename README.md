@@ -33,6 +33,9 @@
   </a>
 </div>
 
+
+- Project is in active development state, if something's not working the way it should work, you're more than welcome to open an [issue](https://github.com/gpskwlkr/ova/issues).
+
 # Available commands
 
 | Command | Options | Description |
