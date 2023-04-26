@@ -9,7 +9,7 @@ repository = "https://github.com/gpskwlkr/ova"
 
 # Static linking to make executable as small as possible
 [profile.release]
-lto = true
+lto = true 
 opt-level = 'z'
 panic = 'abort'
 codegen-units = 1
@@ -22,3 +22,7 @@ totp-rs = "5.0.1"
 [dependencies.clap]
 version = "4.2.4"
 features = ["derive"]
+
+[[bin]]
+name = "ova"
+path = "src/main.rs"

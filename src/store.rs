@@ -103,6 +103,10 @@ impl Store {
             return Err(anyhow!("Key cannot be empty"));
         }
 
+        if value.trim().len() < 16 {
+            return Err(anyhow!("Key must be at least 16 characters long"));
+        }
+
         if self.keys.contains_key(key) {
             return Err(anyhow!("Key already exists"));
         }
@@ -131,6 +135,10 @@ impl Store {
     pub fn update_store(&self, key: &String, value: &String) -> Result<()> {
         if key.trim().is_empty() || value.trim().is_empty() {
             return Err(anyhow!("Key cannot be empty"));
+        }
+
+        if value.trim().len() < 16 {
+            return Err(anyhow!("Key must be at least 16 characters long"));
         }
 
         let (index_to_update, mut file_content) = Self::find_line_index(key, &self.file_path)?;
@@ -174,13 +182,13 @@ mod tests {
         };
 
         let key = "test_key".to_string();
-        let value = "test_value".to_string();
+        let value = "1234567890123456".to_string();
 
         store.insert_into_store(&key, &value).unwrap();
 
         let file_content = Store::read_store_file_as_string(&path).unwrap();
         assert_eq!(file_content.len(), 1);
-        assert_eq!(file_content[0], "test_key = test_value");
+        assert_eq!(file_content[0], "test_key = 1234567890123456");
 
         remove_file(path).unwrap();
     }
@@ -249,7 +257,7 @@ mod tests {
         };
 
         let key = "test_key".to_string();
-        let value = "test_value".to_string();
+        let value = "1234567890123456".to_string();
 
         store.insert_into_store(&key, &value).unwrap();
         store.delete_from_store(&key).unwrap();
@@ -270,14 +278,16 @@ mod tests {
         };
 
         let key = "test_key".to_string();
-        let value = "test_value".to_string();
+        let value = "1234567890123456".to_string();
 
         store.insert_into_store(&key, &value).unwrap();
-        store.update_store(&key, &"new_value".to_string()).unwrap();
+        store
+            .update_store(&key, &"1234567890123456".to_string())
+            .unwrap();
 
         let file_content = Store::read_store_file_as_string(&path).unwrap();
         assert_eq!(file_content.len(), 1);
-        assert_eq!(file_content[0], "test_key = new_value");
+        assert_eq!(file_content[0], "test_key = 1234567890123456");
 
         remove_file(path).unwrap();
     }

@@ -81,12 +81,6 @@ impl App {
             }
 
             Command::Add { name, key } => {
-                if key.is_empty() {
-                    return Err(anyhow!("Key cannot be empty"));
-                } else if key.len() < 16 {
-                    return Err(anyhow!("Key must be at least 16 characters long"));
-                }
-
                 store.insert_into_store(name, key)?;
                 println!("Added {} with key {}", name, key);
             }
