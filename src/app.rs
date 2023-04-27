@@ -10,6 +10,10 @@ pub enum Command {
         #[clap(long, short = 'n')]
         /// Name of the key (e.g. github)
         name: String,
+
+        #[clap(long, short = 'c')]
+        /// Copy the key to the clipboard
+        copy: Option<bool>,
     },
 
     #[clap(alias = "a")]
@@ -70,14 +74,23 @@ impl App {
     pub fn run(&self) -> Result<()> {
         let store = Store::new()?;
         match &self.command {
-            Command::Get { name } => {
+            Command::Get { name, copy } => {
                 let key = match store.keys.get(name) {
                     Some(key) => key,
                     None => {
                         return Err(anyhow!("Key not found"));
                     }
                 };
-                println!("Key: {}", get_2fa_code(key)?);
+
+                let code = get_2fa_code(key)?;
+
+                if copy.is_some() {
+                    let mut clip = crate::clip::Clip::new()?;
+                    clip.copy(&code)?;
+                    println!("Copied code for {} to clipboard", name);
+                } else {
+                    println!("Key: {}", code);
+                }
             }
 
             Command::Add { name, key } => {

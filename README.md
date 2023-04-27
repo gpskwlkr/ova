@@ -40,7 +40,7 @@
 
 | Command | Options | Description |
 | --- | --- | --- |
-| ova get | -n, --name `<name of a key>` | Get 2FA code for specified key |
+| ova get | -n, --name `<name of a key>`, -c, --copy `<true/false>` | Get 2FA code for specified key, copy to clipboard determined by -c flag |
 | ova add | -n, --name `<name of a key>`, -k, --key `<2FA secret>` | Store your key locally at `~/.config/ova.store` or `'%USERPROFILE%\AppData\Local'` |
 | ova remove | -n, --name `<name of a key>` | Remove key from local store file |
 | ova update | -n, --name `<name of a key>`, -k, --key `<new secret value>` | Update key if it exists |
@@ -48,6 +48,15 @@
 | ova help | no options | Provide description for all the commands |
   
 Note that `ova help` could be executed per subcommand as well, like `ova add help` which provides a description for chosen subcommand.
+
+# Dependencies
+
+`ova` depends on `xclip` or `wl-copy` to use system-wide clipboard.
+
+- Linux X11 - `xclip` should be installed
+- Linux Wayland - `wl-copy` should be installed
+
+Windows & Mac OS does not require any additional setup as they use `powershell` :persevere: and `osascript` respectively.
 
 # Install
 
@@ -68,8 +77,9 @@ Or use precompiled binaries provided as releases.
 - [x] Storing keys in a local file :tada:
 - [x] Fully working `get`, `add`, `list` commands :tada:
 - [x] Fully working `remove` and `update` commands :tada:
-- [ ] Copy to clipboard working on Windows, Mac OS and Linux
+- [x] Copy to clipboard working on Windows, Mac OS and Linux
 - [ ] Pretty print
+- [ ] Rewrite windows copy method to winapi and throw away powershell :persevere:
 - [ ] More to come...
 
 # Credits
