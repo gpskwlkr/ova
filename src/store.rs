@@ -112,6 +112,7 @@ impl Store {
         }
 
         let mut file = OpenOptions::new().append(true).open(&self.file_path)?;
+
         file.write_all(format!("{} = {}\n", key, value).as_bytes())?;
         Ok(())
     }
@@ -173,6 +174,84 @@ mod tests {
     use std::path::PathBuf;
 
     #[test]
+    fn test_create_store_file() {
+        let path = PathBuf::new().join("test_create.store");
+
+        let result = Store::create_store_file(&path);
+        assert!(result.is_ok());
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_read_store_file_as_string() {
+        let path = PathBuf::new().join("test_read_as_string.store");
+        let _ = File::create(&path);
+
+        let key = "test_key".to_string();
+        let value = "1234567890123456".to_string();
+
+        let mut file = OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(&path)
+            .unwrap();
+        file.write_all(format!("{} = {}", key, value).as_bytes())
+            .unwrap();
+
+        let file_content = Store::read_store_file_as_string(&path).unwrap();
+        assert_eq!(file_content.len(), 1);
+        assert_eq!(file_content[0], "test_key = 1234567890123456");
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_read_store_file_as_string_with_empty_file() {
+        let path = PathBuf::new().join("test_read_empty.store");
+        let _ = File::create(&path);
+
+        let file_content = Store::read_store_file_as_string(&path).unwrap();
+        assert_eq!(file_content.len(), 0);
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_read_store_file_as_string_with_non_existing_file() {
+        let path = PathBuf::new().join("test_read_non_existing.store");
+
+        let result = Store::read_store_file_as_string(&path);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_read_store_file() {
+        let path = PathBuf::new().join("test_read.store");
+        let _ = File::create(&path);
+
+        let key = "test_key".to_string();
+        let value = "1234567890123456".to_string();
+
+        let mut file = OpenOptions::new()
+            .write(true)
+            .append(true)
+            .open(&path)
+            .unwrap();
+        file.write_all(format!("{} = {}", key, value).as_bytes())
+            .unwrap();
+
+        let file_content = Store::read_store_file(&path).unwrap();
+
+        file_content.iter().for_each(|entry| {
+            assert_eq!(entry.0, "test_key");
+            assert_eq!(entry.1, "1234567890123456");
+        });
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
     fn test_insert_into_store() {
         let path = PathBuf::new().join("test.store");
         let _ = File::create(&path);
@@ -182,13 +261,13 @@ mod tests {
         };
 
         let key = "test_key".to_string();
-        let value = "1234567890123456".to_string();
+        let value = "abcdefghijklmnop".to_string();
 
         store.insert_into_store(&key, &value).unwrap();
 
         let file_content = Store::read_store_file_as_string(&path).unwrap();
         assert_eq!(file_content.len(), 1);
-        assert_eq!(file_content[0], "test_key = 1234567890123456");
+        assert_eq!(file_content[0], "test_key = abcdefghijklmnop");
 
         remove_file(path).unwrap();
     }
@@ -248,6 +327,42 @@ mod tests {
     }
 
     #[test]
+    fn test_insert_into_store_with_key_less_than_16_chars() {
+        let path = PathBuf::new().join("test_key_less_than_16_chars.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "abcdefghijklmnop".to_string();
+        let value = "abcdefghijklmno".to_string();
+
+        let result = store.insert_into_store(&key, &value);
+        assert!(result.is_err());
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_insert_into_store_with_already_existing_key() {
+        let path = PathBuf::new().join("test_existing_key.store");
+        let _ = File::create(&path);
+        let mut store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "test_key".to_string();
+        let value = "abcdefghijklmnop".to_string();
+
+        store.insert_into_store(&key, &value).unwrap();
+        store.keys.insert(key.clone(), value.clone());
+        let result = store.insert_into_store(&key, &value);
+        assert!(result.is_err());
+    }
+
+    #[test]
     fn test_delete_from_store() {
         let path = PathBuf::new().join("test_delete.store");
         let _ = File::create(&path);
@@ -264,6 +379,23 @@ mod tests {
 
         let file_content = Store::read_store_file_as_string(&path).unwrap();
         assert_eq!(file_content.len(), 0);
+
+        remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn test_delete_from_store_with_empty_key() {
+        let path = PathBuf::new().join("test_delete_empty_key.store");
+        let _ = File::create(&path);
+        let store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
+
+        let key = "".to_string();
+
+        let result = store.delete_from_store(&key);
+        assert!(result.is_err());
 
         remove_file(path).unwrap();
     }
@@ -347,44 +479,23 @@ mod tests {
     }
 
     #[test]
-    fn test_read_store_file_as_string() {
-        let path = PathBuf::new().join("test_read.store");
+    fn test_update_store_with_key_less_than_16_chars() {
+        let path = PathBuf::new().join("test_update_key_less_than_16_chars.store");
         let _ = File::create(&path);
+        let mut store = Store {
+            keys: HashMap::new(),
+            file_path: path.clone(),
+        };
 
-        let key = "test_key".to_string();
-        let value = "1234567890123456".to_string();
+        let key = "abcdefghijklmnop".to_string();
+        let value = "abcdefghijklmno".to_string();
+        let insert_value = "abcdefghijklmnop".to_string();
 
-        let mut file = OpenOptions::new()
-            .write(true)
-            .append(true)
-            .open(&path)
-            .unwrap();
-        file.write_all(format!("{} = {}", key, value).as_bytes())
-            .unwrap();
-
-        let file_content = Store::read_store_file_as_string(&path).unwrap();
-        assert_eq!(file_content.len(), 1);
-        assert_eq!(file_content[0], "test_key = 1234567890123456");
-
-        remove_file(path).unwrap();
-    }
-
-    #[test]
-    fn test_read_store_file_as_string_with_empty_file() {
-        let path = PathBuf::new().join("test_read_empty.store");
-        let _ = File::create(&path);
-
-        let file_content = Store::read_store_file_as_string(&path).unwrap();
-        assert_eq!(file_content.len(), 0);
-
-        remove_file(path).unwrap();
-    }
-
-    #[test]
-    fn test_read_store_file_as_string_with_non_existing_file() {
-        let path = PathBuf::new().join("test_read_non_existing.store");
-
-        let result = Store::read_store_file_as_string(&path);
+        store.insert_into_store(&key, &insert_value).unwrap();
+        store.keys.insert(key.clone(), insert_value.clone());
+        let result = store.update_store(&key, &value);
         assert!(result.is_err());
+
+        remove_file(path).unwrap();
     }
 }

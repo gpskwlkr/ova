@@ -5,8 +5,7 @@ test:
     cargo fmt
     cargo test
     cargo clippy -- -D warnings
-commit message:
-    cargo fmt
+commit message: test
     git add .
     git commit -m "{{ message }}"
     git push origin main
