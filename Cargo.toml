@@ -1,6 +1,6 @@
 [package]
 name = "ova"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 description = "CLI tool for managing your 2FA authentication codes written in pure Rust."
 license = "MIT"
@@ -17,7 +17,6 @@ incremental = false
 
 [dependencies]
 anyhow = "1.0.70"
-clipboard = "0.5.0"
 totp-rs = "5.0.1"
 
 [dependencies.clap]
