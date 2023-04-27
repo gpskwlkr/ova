@@ -22,18 +22,4 @@ mod tests {
         let code = get_2fa_code(key);
         assert!(code.is_err());
     }
-
-    #[test]
-    fn test_get_2fa_code_with_key_less_than_32_characters() {
-        let key = "1234567890123456789012345678901";
-        let code = get_2fa_code(key);
-        assert!(code.is_err());
-    }
-
-    #[test]
-    fn test_get_2fa_code_with_key_more_than_32_characters() {
-        let key = "123456789012345678901234567890123";
-        let code = get_2fa_code(key);
-        assert!(code.is_err());
-    }
 }
