@@ -40,4 +40,4 @@ jobs:
           cargo build --release 
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v1
+        uses: coverallsapp/github-action@v2
